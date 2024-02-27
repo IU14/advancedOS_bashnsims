@@ -3,7 +3,7 @@
 - [ ] Display Menu using entire screen
 - [X] Select correctly & launch on a clean screen
       ---- just usec clear function for this, can maybe use screen code but unable to install easily in tiny core [add this to write up?]
-- [/] Launch separate menu (place holder) files
+- [ ] Launch separate menu (place holder) files
         ---- visullay done useing the clear command
 - [X] Ability to exit at any prompt via the “Bye” command (case insensitive)
 - [X] Prompt users if they really want to exit via a Y/n option (case insensitive) & repeat question until a valid choice is made
@@ -14,17 +14,20 @@
 - [ ] Validate user password on entry (login correctly)
 - [ ] Usage of appropriate functions (implemented)
 - [ ] Correct usage of Global/Local variables
-- [/] Simple animation/ loading bar when menu start/exits & selection of simulator
-        ---- simulator done, need to add one to the menu 
+- [X] Simple animation/ loading bar when menu start/exits & selection of simulater 
 - [ ] Create separate admin script to add/ modify users to a database file
-- [ ] Usernames and passwords are case insensitive & validated
-- [ ] On user creation request password/pin twice & check if both entries are the same
+- [X] Usernames and passwords are case insensitive & validated 
+- [X] On user creation request password/pin twice & check if both entries are the same
 - [ ] Ability to delete user given correct PIN
-- [ ] Ability to rest user password given correct PIN
-- [ ] PIN validation on creation
+- [ ] Ability to reset user password given correct PIN
+- [X] PIN validation on creation
 - [ ] Accurate log recorded for user usage
 - [ ] Complete implementation of admin script for usage analysis as outlined
 - [ ] Correct implementation of sim data configuration & usage
 - [X] Correct implementation of LIFO & FIFO scripts
 - [ ] Correct and complete implementation (as outlined above)
 - [ ] 800 words write up
+
+To DO next:
+in admin script, implement the ability to delete a user; change password; - also implement going back to the questions. 
+in menu script, check username exists in database 
