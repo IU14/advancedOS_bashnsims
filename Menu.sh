@@ -12,7 +12,7 @@ RESET='\033[0m'
 clear
 
 #setting to full screen
-
+printf '\033[8;999;999t'
 
 #Menu Display & Select
 
