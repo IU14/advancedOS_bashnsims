@@ -6,16 +6,16 @@ ProgressBar()
 {
 	iterations=20
 	echo -n "Progress: ["
-
+    
 	i=0
-    	while [ "$i" -lt "$iterations" ]; do
-        	percentage=$(( (i * 100) / iterations ))
-		num_hashes=$(( (i * 10) / iterations ))
-		printf "[%-10s] %d%%" "$(printf '#%.0s' $(seq 1 $num_hashes))" "$percentage"
-		sleep 0.1         
-        	echo -ne "\r"
-     		i=$((i + 1))
-   	 done
+ 	while [ "$i" -lt "$iterations" ]; do
+		percentage=$(( (i * 100) / iterations ))
+		printf "#"
+        	i=$((i + 1))
+        	sleep 0.1  
+    done
+    
+    echo "] 100%"
 }
 
 # Functions for the FIFO simulator: Pushing an item onto the stack, popping an item from the stack, and clearing the stack.

@@ -1,5 +1,40 @@
 #!/bin/sh
 
+#function to show loading bar 
+
+LoadingBar()
+{
+	iterations=20
+	echo -n "Loading: ["
+    
+	i=0
+ 	while [ "$i" -lt "$iterations" ]; do
+		percentage=$(( (i * 100) / iterations ))
+		printf "#"
+        	i=$((i + 1))
+        	sleep 0.1  
+    done
+    
+    echo "] 100%"
+}
+
+ExitBar()
+{
+	iterations=20
+   	echo -n "Exiting: ["
+    
+   	i=0
+  	 while [ "$i" -lt "$iterations" ]; do
+        	percentage=$(( (i * 100) / iterations ))
+        	printf "#"
+        	i=$((i + 1))
+        	sleep 0.1  
+    	done
+    
+    	echo "] 100%"
+}
+
+
 
 #defining colours for the menu using asni codes
 RED='\033[0;31m'
@@ -50,6 +85,7 @@ while true; do
     case "$(echo "$choice" | tr '[:upper:]' '[:lower:]')" in
         y|yes) 
             echo "GoodBye"
+	    ExitBar
 	    exit ;;
         n|no) 
             echo "Continuing"
@@ -62,6 +98,8 @@ done
 #####################
 ### RUNNING CODE ####
 #####################
+
+LoadingBar
 
 #Store username in global var
 echo "Please Enter Username"
