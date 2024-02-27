@@ -3,7 +3,7 @@
 - [ ] Display Menu using entire screen
 - [ ] Select correctly & launch on a clean screen
 - [ ] Launch separate menu (place holder) files
-- [ ] Ability to exit at any prompt via the “Bye” command (case insensitive)
+- [X] Ability to exit at any prompt via the “Bye” command (case insensitive)
 - [ ] Prompt users if they really want to exit via a Y/n option (case insensitive) & repeat question until a valid choice is made
 - [ ] After completion of a selected simulator user returns back to menu
 - [ ] Suitable comments in code (comments must not exceed code)
