@@ -1,13 +1,14 @@
 # Assignment Checklist
 
 - [ ] Display Menu using entire screen
-- [ ] Select correctly & launch on a clean screen
+- [X] Select correctly & launch on a clean screen
+      ---- just usec clear function for this, can maybe use screen code but unable to install easily in tiny core [add this to write up?]
 - [ ] Launch separate menu (place holder) files
 - [X] Ability to exit at any prompt via the “Bye” command (case insensitive)
-- [ ] Prompt users if they really want to exit via a Y/n option (case insensitive) & repeat question until a valid choice is made
+- [X] Prompt users if they really want to exit via a Y/n option (case insensitive) & repeat question until a valid choice is made
 - [ ] After completion of a selected simulator user returns back to menu
 - [ ] Suitable comments in code (comments must not exceed code)
-- [ ] Usage of colour in the menu system
+- [X] Usage of colour in the menu system
 - [ ] Validate user correctly on entry (login correctly)
 - [ ] Validate user password on entry (login correctly)
 - [ ] Usage of appropriate functions (implemented)
