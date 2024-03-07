@@ -29,6 +29,6 @@
 - [ ] 800 words write up
 
 To DO next:
--make exit function global. 
--User data file and record activity 
+- make exit function global. (Started)
+- User data file and record activity 
 
