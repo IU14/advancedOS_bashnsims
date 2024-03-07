@@ -52,7 +52,6 @@ printf '\033[8;999;999t'
 #login function
 Login()
 {	
-	
 	#takes input and checks user exists
 	if grep -q "^$Uname:" UPP.db; then
 		echo "Please enter password."
@@ -66,14 +65,17 @@ Login()
 				fi
 	else
 		echo "Invalid username"
+		exit
 	fi
 	
 }
+
 
 #Menu Display & Select
 
 Menu()
 {
+	LoadingBar
 	echo -e "Make your selection or type bye to exit:" 
 	echo -e "${BLUE}1 for FIFO${RESET}"
 	echo -e "${GREEN}2 for LIFO${RESET}"
@@ -120,15 +122,17 @@ done
 ### RUNNING CODE ####
 #####################
 
-LoadingBar
-
 #Store username in global var
 echo "Please Enter Username"
 read Uname
 
-#runs within a clean subshell
+Login
+
+
 (
-	while true;do
-		Login
+	while true; do
+		Menu
 	done
 )
+
+
