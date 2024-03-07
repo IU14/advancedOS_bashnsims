@@ -58,10 +58,10 @@ Login()
 		read password
 		storedPassword=$(grep "^$Uname:" UPP.db | cut -d: -f2)
 			if [ "$password" = "$storedPassword" ]; then
-					echo "Welcome $user"
+					echo "Welcome $Uname"
 					Menu
 				else
-					echo "Invalid password."
+					echo "Invalid password." >&2
 				fi
 	else
 		echo "Invalid username"
@@ -107,7 +107,7 @@ while true; do
     read choice
     case "$(echo "$choice" | tr '[:upper:]' '[:lower:]')" in
         y|yes) 
-            echo "GoodBye"
+            echo "GoodBye $Uname"
 	    ExitBar
 	    exit ;;
         n|no) 
