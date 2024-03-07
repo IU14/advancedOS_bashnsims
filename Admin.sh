@@ -3,10 +3,19 @@
 #Admin script allows users to be created /  modified and saved to the database (UPP.db) 
 
 
-#Function to check if user alreay exists
+#Function to check if user alreay exists 
 checkUser()
 {
 	grep -q "^$1:" UPP.db
+}
+#Function to check user length
+userLength()
+{	
+	if [ ${#1} -eq 5 ]; then
+		return 0
+	else
+		return 1
+	fi
 }
 
 # Function to add / modify users 
@@ -18,6 +27,14 @@ setUser() {
     # User
     echo "Enter a Username to check:"
     read user 
+
+	# checkd username is 5 characters long
+	if userLength "$user"; then
+		continue								
+	else
+		#starts the program again
+		StartUp2
+	fi
 
 	while true; do
     #checks if user exits, if they do gives option to modify user(delete, reset password.)
@@ -56,27 +73,28 @@ setUser() {
         read choice
         case "$(echo "$choice" | tr '[:upper:]' '[:lower:]')" in
             y|yes)
-                # Code to create a password, accounts for case insensitivity and checks for a letter. 
-                while true; do
-                    echo "Create Password (password must contain one letter & at least one number):"
-                    read -s password
-		    passwordLower=$(echo "$password" | tr '[:upper:]' '[:lower:]')
-                    if [[ "$passwordLower" =~ [a-z] && "$passwordLower" =~ [0-9] ]]; then
-                        echo "Re-enter Password:"
-                        read -s checkPassword
-			checkPasswordLower=$(echo "$checkPassword" | tr '[:upper:]' '[:lower:]')
-                        if [ "$checkPasswordLower" = "$passwordLower" ]; then
-                            echo "Password accepted."
-                            break
-                        else
-                            echo "Passwords do not match."
-                        fi
-                    else
-                        echo "Password must contain at least one uppercase letter, one lowercase letter, and one number."
-                    fi
-                done
-                
-                # code to create a 3 number pin. 
+		# Code to create a password, accounts for case insensitivity and checks for a letter. 
+	         while true; do
+        	            echo "Create Password (password must contain at least one letter & one number, and be 5 five characters in length):"
+                	    read -s password
+		    		passwordLower=$(echo "$password" | tr '[:upper:]' '[:lower:]')
+                    		if [[ "$passwordLower" =~ ^[a-zA-Z0-9]{5}$ ]]; then
+                        		echo "Re-enter Password:"
+                        		read -s checkPassword
+					checkPasswordLower=$(echo "$checkPassword" | tr '[:upper:]' '[:lower:]')
+                        			if [ "$checkPasswordLower" = "$passwordLower" ]; then
+                            				echo "Password accepted."
+                            			break
+                        		else
+                            			echo "Passwords do not match."
+                        		fi
+				
+                    		else
+                        		echo "Password must contain at least one uppercase letter, one lowercase letter, and one number."
+                    		fi
+                	done
+		
+		# code to create a 3 number pin. 
                 while true; do
                     echo "Create PIN (PIN must be 3 numbers):"
                     read -s pin
@@ -97,7 +115,7 @@ setUser() {
                 # Once password & pin are succesfully created, user is to the database upon creation
                 echo "$user:$password:$pin" >> UPP.db
                 echo "User Created"
-                return 0
+                exit
                 ;;
             *)
                 echo "Exiting"
@@ -188,6 +206,12 @@ StartUp()
 	echo "Welcome to the admin script, here you can Create or Modify a user."
 	setUser
 		
+}
+
+StartUp2()
+{
+	echo "Username is not the correct length, usernames must be 5 characters long."
+	setUser
 }
 
 
