@@ -31,5 +31,4 @@
 To DO next:
 -make exit function global. 
 -User data file and record activity 
--Fix issue where after sim runs ask for password again - rather than return to menu()
--
+
