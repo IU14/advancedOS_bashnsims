@@ -2,13 +2,14 @@
 
 #Admin script allows users to be created /  modified and saved to the database (UPP.db) 
 
-#Fucntion to check if user alreay exists
+
+#Function to check if user alreay exists
 checkUser()
 {
 	grep -q "^$1:" UPP.db
 }
 
-# Fucntion to add / modify users 
+# Function to add / modify users 
 # Takes local variables and checks they exits in the db - if not allows creation of the user, if they do allows modification of the user
 
 setUser() {
@@ -18,6 +19,7 @@ setUser() {
     echo "Enter a Username to check:"
     read user 
 
+	while true; do
     #checks if user exits, if they do gives option to modify user(delete, reset password.)
     # If user does not exist, asks to craate a user and then goes on to create user setting a password and pin
     if checkUser "$user"; then
@@ -31,11 +33,11 @@ setUser() {
 		case "$(echo "$choice2" | tr '[:upper:]' '[:lower:]')" in   
 			d) 
 				# code to delete user
-				echo "User deletion not yet implemented"
+				deleteUser
 				;;
 			r) 
 				#code to reset password
-				echo "Password Reset not yet implemented"
+				resetPassword
 				;;
 			*)
 				# to implement invalid choice, asking question again
@@ -46,7 +48,7 @@ setUser() {
                 ;;
             *)
                 echo "Exiting"
-                return 1
+                exit
                 ;;
         esac
     else
@@ -74,11 +76,11 @@ setUser() {
                     fi
                 done
                 
-                # code to create a 4 number pin. 
+                # code to create a 3 number pin. 
                 while true; do
-                    echo "Create PIN (PIN must be 4 numbers):"
+                    echo "Create PIN (PIN must be 3 numbers):"
                     read -s pin
-                    if [[ "$pin" =~ ^[0-9]{4}$ ]]; then
+                    if [[ "$pin" =~ ^[0-9]{3}$ ]]; then
                         echo "Re-enter PIN:"
                         read -s checkPin
                         if [ "$checkPin" = "$pin" ]; then
@@ -88,7 +90,7 @@ setUser() {
                             echo "PINs do not match."
                         fi
                     else
-                        echo "PIN must be 4 numbers."
+                        echo "PIN must be 3 numbers."
                     fi
                 done
                 
@@ -103,20 +105,80 @@ setUser() {
                 ;;
         esac
     fi
+done
 }
 
 #delete user using PIN
 deleteUser()
 {
-	echo "Function not yet implemented"
-	exit
+    #sets the  user details to a variable
+    lineCheck=$(grep -n "^$user:" UPP.db | cut -d: -f1)
+    
+    # Retrieves the PIN from the variable (-f3 is the position of the pin in the document)
+    storedPin=$(grep "^$user:" UPP.db | cut -d: -f3)
+
+    echo "Please enter user's PIN to delete:"
+    read -s pin
+
+    # Compares the entered PIN with the stored PIN, if it matches asks to re enter pin, then deletes user if mathed. 
+    if [ "$pin" = "$storedPin" ]; then
+	echo "Re-enter PIN:"
+              read -s checkPin
+		if [ "$checkPin" = "$pin" ]; then
+        		echo "PIN accepted. User deleted"
+        		grep -v "^$user:" UPP.db > temp.db
+       		 mv temp.db UPP.db
+		 else 
+		 	echo "invalid pin, user not deleted."
+		fi
+    	else
+        echo "Invalid PIN."
+    fi
+    exit
 }
 
 #reset password using PIN
 resetPassword()
 {
-	echo "Function not yet implemented"
-	exit
+    #sets the chosen user to a variable (-f1 is the position of the username in the db)
+    userCheck=$(grep -n "^$user:" UPP.db)
+    if [ -z "$userCheck" ]; then
+        echo "User not found in the database."
+        return 1
+    fi
+    
+    # Retrieves the PIN from the user (-f3 is the position of the pin in the db)
+    storedPin=$(grep "^$user:" UPP.db | cut -d: -f3)
+
+    echo "Please enter user's PIN to Reset Password:"
+    read -s pin
+
+    # Compares the entered PIN with the stored PIN, then if exists asks to re-enter, then allows the password to be reset
+    if [ "$pin" = "$storedPin" ]; then
+	echo "Re-enter PIN:"
+              read -s checkPin
+		if [ "$checkPin" = "$pin" ]; then
+        		echo "Enter new password (password must contain one letter & at least one number):"
+			read -s newPassword
+			newPasswordLower=$(echo "$newPassword" | tr '[:upper:]' '[:lower:]')
+				if [[ "$newPasswordLower" =~ [a-z] && "$newPasswordLower" =~ [0-9] ]]; then
+					#updates the password field
+					username=$(echo "$userCheck" | cut -d: -f2)
+					updatedUser="$username:$newPassword:$pin"
+					temp=$(mktemp)
+                			grep -v "^$user:" UPP.db > "$temp"
+               				echo "$updatedUser" >> "$temp"
+               				mv "$temp" UPP.db					
+					echo "Password updated"
+        		else
+				echo "Invalid password, password not updated"
+			fi
+		 else 
+		 	echo "Invalid pin, password not updated."
+		fi
+    	else
+        echo "Invalid PIN."
+    fi
 }
 
 # Start up Function
@@ -127,6 +189,11 @@ StartUp()
 	setUser
 		
 }
+
+
+#####################
+### RUNNING CODE ####
+#####################
 
 #Calls the start up function on running of script
 StartUp

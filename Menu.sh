@@ -49,6 +49,27 @@ clear
 #setting to full screen
 printf '\033[8;999;999t'
 
+#login function
+Login()
+{	
+	
+	#takes input and checks user exists
+	if grep -q "^$Uname:" UPP.db; then
+		echo "Please enter password."
+		read password
+		storedPassword=$(grep "^$Uname:" UPP.db | cut -d: -f2)
+			if [ "$password" = "$storedPassword" ]; then
+					echo "Welcome $user"
+					Menu
+				else
+					echo "Invalid password."
+				fi
+	else
+		echo "Invalid username"
+	fi
+	
+}
+
 #Menu Display & Select
 
 Menu()
@@ -108,6 +129,6 @@ read Uname
 #runs within a clean subshell
 (
 	while true;do
-		Menu
+		Login
 	done
 )

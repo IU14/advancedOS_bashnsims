@@ -1,12 +1,9 @@
-#!/bin/sh
+#Databse of users 
 
-#Databse that stores Usernames, Passwords and Pins
-#test data 
+#test users 
 
-IUden:TestMe12;9876
+IUden:AppleP1e:123
 
-SparkleUnicorn:Un1corn;1234
-
-
-Patrick:Joy8;7788
-joy:happy7:1236
+Paul:password4:555
+Tony:89uyt:455
+Penny:joy77:777
