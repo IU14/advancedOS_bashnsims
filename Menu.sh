@@ -118,6 +118,7 @@ while true; do
     esac
 done
 }
+
 #####################
 ### RUNNING CODE ####
 #####################
@@ -132,6 +133,7 @@ Login
 (
 	while true; do
 		Menu
+		
 	done
 )
 

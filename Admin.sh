@@ -24,11 +24,11 @@ userLength()
 setUser() {
     local user password pin
 
-    # User
+    # Creates the User variable from input
     echo "Enter a Username to check:"
     read user 
 
-	# checkd username is 5 characters long
+	# checks username is 5 characters long
 	if userLength "$user"; then
 		continue								
 	else
@@ -38,9 +38,9 @@ setUser() {
 
 	while true; do
     #checks if user exits, if they do gives option to modify user(delete, reset password.)
-    # If user does not exist, asks to craate a user and then goes on to create user setting a password and pin
+    # If user does not exist, asks to create a user and then goes on to create user setting a password and pin
     if checkUser "$user"; then
-        echo "User already exists, would you like to modify? (Y or any key to exit)"
+        echo "User already exists, would you like to modify? (Y or bye to exit)"
         read choice
         case "$(echo "$choice" | tr '[:upper:]' '[:lower:]')" in   
             y|yes)
@@ -56,16 +56,25 @@ setUser() {
 				#code to reset password
 				resetPassword
 				;;
+			bye)	
+				# code that calls the bye(exit) function
+				echo "Exiting..."
+				sh Menu.sh ExitFunc
+				;;
 			*)
 				# to implement invalid choice, asking question again
-				echo "invalid choice please select again"
+				echo "invalid choice please select again" >&2
 				;;
 		esac
 			
                 ;;
+	    bye)
+		echo Exiting...
+		sh Menu.sh ExitFunc
+		;;
+
             *)
-                echo "Exiting"
-                exit
+                echo "invalid choice" >&2
                 ;;
         esac
     else
@@ -86,11 +95,11 @@ setUser() {
                             				echo "Password accepted."
                             			break
                         		else
-                            			echo "Passwords do not match."
+                            			echo "Passwords do not match." 
                         		fi
 				
                     		else
-                        		echo "Password must contain at least one uppercase letter, one lowercase letter, and one number."
+                        		echo "Password must contain at least one uppercase letter, one lowercase letter, and one number." >&2
                     		fi
                 	done
 		
@@ -108,7 +117,7 @@ setUser() {
                             echo "PINs do not match."
                         fi
                     else
-                        echo "PIN must be 3 numbers."
+                        echo "PIN must be 3 numbers." >&2 
                     fi
                 done
                 
@@ -117,8 +126,14 @@ setUser() {
                 echo "User Created"
                 exit
                 ;;
+
+	    bye) 
+		echo Exiting...
+		sh Menu.sh ExitFunc
+		;;
+		
             *)
-                echo "Exiting"
+                echo "Invalid option" >&2
                 return 1
                 ;;
         esac
