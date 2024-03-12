@@ -2,7 +2,7 @@
 
 - [ ] Display Menu using entire screen
 - [X] Select correctly & launch on a clean screen
-- [ ] Launch separate menu (place holder) files
+- [X] Launch separate menu (place holder) files
 - [X] Ability to exit at any prompt via the “Bye” command (case insensitive)
 - [X] Prompt users if they really want to exit via a Y/n option (case insensitive) & repeat question until a valid choice is made
 - [X] After completion of a selected simulator user returns back to menu
@@ -28,5 +28,4 @@
 
 To DO next:
 - add how long somsone was in system
-- sims to return to menu when finished (launch in seperate terminal and then return to previous one) 
-
+- implement the simdata file as requested in assignment breif
