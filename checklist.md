@@ -19,7 +19,7 @@
 - [X] Ability to delete user given correct PIN
 - [X] Ability to reset user password given correct PIN
 - [X] PIN validation on creation
-- [ ] Accurate log recorded for user usage
+- [x] Accurate log recorded for user usage
 - [ ] Complete implementation of admin script for usage analysis as outlined
 - [ ] Correct implementation of sim data configuration & usage
 - [X] Correct implementation of LIFO & FIFO scripts
@@ -27,5 +27,6 @@
 - [ ] 800 words write up - currently over word count, need to make more concise and pick what really is the most important key parts to talk about. 
 
 To DO next:
-- User data file and record activity 
+- add how long somsone was in system
+- sims to return to menu when finished (launch in seperate terminal and then return to previous one) 
 
