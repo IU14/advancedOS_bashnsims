@@ -2,9 +2,7 @@
 
 - [ ] Display Menu using entire screen
 - [X] Select correctly & launch on a clean screen
-      ---- just usec clear function for this, can maybe use screen code but unable to install easily in tiny core [add this to write up?]
 - [ ] Launch separate menu (place holder) files
-        ---- visullay done useing the clear command
 - [X] Ability to exit at any prompt via the “Bye” command (case insensitive)
 - [X] Prompt users if they really want to exit via a Y/n option (case insensitive) & repeat question until a valid choice is made
 - [X] After completion of a selected simulator user returns back to menu
