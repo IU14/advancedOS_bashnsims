@@ -25,6 +25,7 @@ RED='\033[0;31m'
 GREEN='\033[0;32m'
 BLUE='\033[0;34m'
 MAGENTA='\033[0;35m'
+YELLOW='\033[0;33m'
 RESET='\033[0m'
 
 #clearing screen
@@ -63,6 +64,7 @@ Menu()
 	echo -e "Make your selection or type bye to exit:" 
 	echo -e "${BLUE}1 for FIFO${RESET}"
 	echo -e "${GREEN}2 for LIFO${RESET}"
+	echo -e "${YELLOW}3 for Reset your password${RESET}"
 	echo -e "${RED}BYE for Exit${RESET}"
 	echo -e "Please Enter Selection:"
 	read Sel
@@ -77,6 +79,7 @@ MenuSel()
 case $(echo "$1" | tr '[:upper:]' '[:lower:]') in
 	1) sh FIFO.sh;;
         2) sh LIFO.sh;;
+	3) sh resetP.sh "$Uname";;
 	bye) sh Exit.sh ExitFunc;;
 	*) echo -e "${MAGENTA}Invalid Selection${RESET}"
 	sleep 1
