@@ -29,6 +29,5 @@
 - [ ] 800 words write up - currently over word count, need to make more concise and pick what really is the most important key parts to talk about. 
 
 To DO next:
-- make exit function global. (Started)
 - User data file and record activity 
 
