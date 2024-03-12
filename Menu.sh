@@ -18,22 +18,6 @@ LoadingBar()
     echo "] 100%"
 }
 
-ExitBar()
-{
-	iterations=20
-   	echo -n "Exiting: ["
-    
-   	i=0
-  	 while [ "$i" -lt "$iterations" ]; do
-        	percentage=$(( (i * 100) / iterations ))
-        	printf "#"
-        	i=$((i + 1))
-        	sleep 0.1  
-    	done
-    
-    	echo "] 100%"
-}
-
 
 
 #defining colours for the menu using asni codes
@@ -93,30 +77,11 @@ MenuSel()
 case $(echo "$1" | tr '[:upper:]' '[:lower:]') in
 	1) sh FIFO.sh;;
         2) sh LIFO.sh;;
-	bye) ExitFunc;;
+	bye) sh Exit.sh ExitFunc;;
 	*) echo -e "${MAGENTA}Invalid Selection${RESET}"
 	sleep 1
 	Menu;;
 esac
-}
-
-ExitFunc()
-{
-while true; do
-    echo "Do you really want to exit? (Y/n)"
-    read choice
-    case "$(echo "$choice" | tr '[:upper:]' '[:lower:]')" in
-        y|yes) 
-            echo "GoodBye $Uname"
-	    ExitBar
-	    exit ;;
-        n|no) 
-            echo "Continuing"
-            break ;;
-        *) 
-            echo "Invalid choice. Please enter Y or n." ;;
-    esac
-done
 }
 
 #####################
@@ -128,13 +93,5 @@ echo "Please Enter Username"
 read Uname
 
 Login
-
-
-(
-	while true; do
-		Menu
-		
-	done
-)
 
 

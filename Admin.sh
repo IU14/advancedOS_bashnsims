@@ -59,7 +59,7 @@ setUser() {
 			bye)	
 				# code that calls the bye(exit) function
 				echo "Exiting..."
-				sh Menu.sh ExitFunc
+				sh Exit.sh ExitFunc
 				;;
 			*)
 				# to implement invalid choice, asking question again
@@ -70,7 +70,8 @@ setUser() {
                 ;;
 	    bye)
 		echo Exiting...
-		sh Menu.sh ExitFunc
+		sh Exit.sh ExitFunc
+		exit
 		;;
 
             *)
@@ -129,7 +130,8 @@ setUser() {
 
 	    bye) 
 		echo Exiting...
-		sh Menu.sh ExitFunc
+		sh Exit.sh ExitFunc
+		exit
 		;;
 		
             *)
@@ -236,3 +238,6 @@ StartUp2()
 
 #Calls the start up function on running of script
 StartUp
+
+
+
