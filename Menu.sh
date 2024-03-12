@@ -86,7 +86,7 @@ case $(echo "$1" | tr '[:upper:]' '[:lower:]') in
 		sh LIFO.sh;;
 	3) echo "$Uname reset their password at $(date "+%D %r")" >> Usage.db
 		sh resetP.sh "$Uname";;
-	bye) sh Exit.sh ExitFunc;;
+	bye) sh Exit.sh ExitFunc; break;;
 	*) echo -e "${MAGENTA}Invalid Selection${RESET}"
 	sleep 1
 	Menu;;
@@ -102,4 +102,9 @@ echo "Please Enter Username"
 read Uname
 
 Login
+
+while true;do
+	Menu
+done
+
 
