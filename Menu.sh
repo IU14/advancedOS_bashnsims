@@ -37,13 +37,15 @@ printf '\033[8;999;999t'
 #login function
 Login()
 {	
-	#takes input and checks user exists
+	#takes input and checks user exists, if so checks password is correct & logs in 
 	if grep -q "^$Uname:" UPP.db; then
 		echo "Please enter password."
 		read password
 		storedPassword=$(grep "^$Uname:" UPP.db | cut -d: -f2)
 			if [ "$password" = "$storedPassword" ]; then
 					echo "Welcome $Uname"
+					# adds a time stamp of when user logged in. 
+					echo "$Uname logged in on $(date "+%D %r")" >> Usage.db
 					Menu
 				else
 					echo "Invalid password." >&2
@@ -72,14 +74,18 @@ Menu()
 }
 
 
-#Menu case
+#Menu case 
+#When a selection is made a log is entered into the Usage.db file
 MenuSel()
 {
 
 case $(echo "$1" | tr '[:upper:]' '[:lower:]') in
-	1) sh FIFO.sh;;
-        2) sh LIFO.sh;;
-	3) sh resetP.sh "$Uname";;
+	1) echo "$Uname ran the FIFO simulator at $(date "+%D %r")" >> Usage.db
+		sh FIFO.sh;;
+        2) echo "$Uname ran the LIFO simulator at $(date "+%D %r")" >> Usage.db
+		sh LIFO.sh;;
+	3) echo "$Uname reset their password at $(date "+%D %r")" >> Usage.db
+		sh resetP.sh "$Uname";;
 	bye) sh Exit.sh ExitFunc;;
 	*) echo -e "${MAGENTA}Invalid Selection${RESET}"
 	sleep 1
@@ -96,5 +102,4 @@ echo "Please Enter Username"
 read Uname
 
 Login
-
 

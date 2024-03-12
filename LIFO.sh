@@ -47,7 +47,6 @@ Pop()
 	else
 		echo "Nothing in stack"
 	fi
-	sleep 1
 	
 }
 
@@ -79,5 +78,3 @@ Pop
 Pop
 
 return 0
-
-exit

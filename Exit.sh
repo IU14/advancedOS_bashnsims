@@ -10,8 +10,10 @@ while true; do
     case "$(echo "$choice" | tr '[:upper:]' '[:lower:]')" in
         y|yes) 
             echo "GoodBye."
+	    echo "$Uname logged off at $(date "+%D %r")" >> Usage.db
 	    ExitBar
-	    exit ;;
+	    exit
+	    ;;
         n|no) 
             echo "Continuing"
             break ;;
