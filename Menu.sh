@@ -46,9 +46,11 @@ Login()
 					echo "Welcome $Uname"
 					# adds a time stamp of when user logged in. 
 					echo "$Uname logged in on $(date "+%D %r")" >> Usage.db
-					Menu
+					loggedIn=$(date "+%s")
+					Menu 
 				else
 					echo "Invalid password." >&2
+					exit
 				fi
 	else
 		echo "Invalid username"
@@ -70,14 +72,14 @@ Menu()
 	echo -e "${RED}BYE for Exit${RESET}"
 	echo -e "Please Enter Selection:"
 	read Sel
-	MenuSel "$Sel"
+	MenuSel "$Sel" 
 }
-
 
 #Menu case 
 #When a selection is made a log is entered into the Usage.db file
 MenuSel()
 {
+
 
 case $(echo "$1" | tr '[:upper:]' '[:lower:]') in
 	1) echo "$Uname ran the FIFO simulator at $(date "+%D %r")" >> Usage.db
@@ -86,7 +88,7 @@ case $(echo "$1" | tr '[:upper:]' '[:lower:]') in
 		sh LIFO.sh;;
 	3) echo "$Uname reset their password at $(date "+%D %r")" >> Usage.db
 		sh resetP.sh "$Uname";;
-	bye) sh Exit.sh ExitFunc; break;;
+	bye) sh Exit.sh "$Uname" "$loggedIn"; break;;
 	*) echo -e "${MAGENTA}Invalid Selection${RESET}"
 	sleep 1
 	Menu;;

@@ -2,6 +2,11 @@
 
 #script to host the universal exit function
 
+Uname="$1"
+loggedInTime="$2"
+
+
+
 ExitFunc()
 {
 while true; do
@@ -9,8 +14,11 @@ while true; do
     read choice
     case "$(echo "$choice" | tr '[:upper:]' '[:lower:]')" in
         y|yes) 
-            echo "GoodBye."
-	    echo "$Uname logged off at $(date "+%D %r")" >> Usage.db
+            echo "GoodBye $Uname."
+	    echo " $Uname logged off at $(date "+%D %r")" >> Usage.db
+	    loggedOffTime=$(date "+%s")
+	    sessionDuration=$((loggedOffTime-loggedInTime))
+	    echo "$Uname 's session ended after $((sessionDuration / 60)) minutes and $((sessionDuration % 60)) seconds." >> Usage.db
 	    ExitBar
 	    exit
 	    ;;
