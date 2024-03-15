@@ -20,12 +20,12 @@
 - [X] Ability to reset user password given correct PIN
 - [X] PIN validation on creation
 - [x] Accurate log recorded for user usage
-- [ ] Complete implementation of admin script for usage analysis as outlined
+- [X] Complete implementation of admin script for usage analysis as outlined
 - [ ] Correct implementation of sim data configuration & usage
 - [X] Correct implementation of LIFO & FIFO scripts
 - [ ] Correct and complete implementation (as outlined above)
 - [ ] 800 words write up - currently over word count, need to make more concise and pick what really is the most important key parts to talk about. 
 
 To DO next:
-- add how long somsone was in system
+
 - implement the simdata file as requested in assignment breif
