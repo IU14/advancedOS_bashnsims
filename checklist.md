@@ -21,11 +21,13 @@
 - [X] PIN validation on creation
 - [x] Accurate log recorded for user usage
 - [X] Complete implementation of admin script for usage analysis as outlined
-- [ ] Correct implementation of sim data configuration & usage
+- [X] Correct implementation of sim data configuration & usage
 - [X] Correct implementation of LIFO & FIFO scripts
-- [ ] Correct and complete implementation (as outlined above)
+- [X] Correct and complete implementation (as outlined above)
 - [ ] 800 words write up - currently over word count, need to make more concise and pick what really is the most important key parts to talk about. 
 
 To DO next:
 
-- implement the simdata file as requested in assignment breif
+- fix delte func
+- complete write up
+- submit 
