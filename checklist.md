@@ -29,5 +29,7 @@
 To DO next:
 
 - fix delte func
+- An additional admin script file is also needed such that admin can get useful information on a per user / per sim bases. 
+- They must get details of: total time spent, most poopular sim (per user), most pop sim overall and a ranking list of users who has used the system the most. 
 - complete write up
 - submit 
