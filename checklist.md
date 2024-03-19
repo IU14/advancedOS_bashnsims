@@ -6,12 +6,12 @@
 - [X] Ability to exit at any prompt via the “Bye” command (case insensitive)
 - [X] Prompt users if they really want to exit via a Y/n option (case insensitive) & repeat question until a valid choice is made
 - [X] After completion of a selected simulator user returns back to menu
-- [ ] Suitable comments in code (comments must not exceed code)
+- [X] Suitable comments in code (comments must not exceed code)
 - [X] Usage of colour in the menu system
 - [X] Validate user correctly on entry (login correctly)
 - [X] Validate user password on entry (login correctly)
-- [ ] Usage of appropriate functions (implemented)
-- [ ] Correct usage of Global/Local variables
+- [X] Usage of appropriate functions (implemented)
+- [X] Correct usage of Global/Local variables
 - [X] Simple animation/ loading bar when menu start/exits & selection of simulater 
 - [X] Create separate admin script to add/ modify users to a database file
 - [X] Usernames and passwords are case insensitive & validated 
