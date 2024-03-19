@@ -2,13 +2,13 @@
 
 #Admin script allows users to be created /  modified and saved to the database (UPP.db) 
 
-
-#Function to check if user alreay exists 
+#Function to check if user alreay exists in the database file
 checkUser()
 {
 	grep -q "^$1:" UPP.db
 }
-#Function to check user length
+
+#Function to check user length 
 userLength()
 {	
 	if [ ${#1} -eq 5 ]; then
@@ -19,7 +19,7 @@ userLength()
 }
 
 # Function to add / modify users 
-# Takes local variables and checks they exits in the db - if not allows creation of the user, if they do allows modification of the user
+# Takes local variables and checks they exits in the db - if not allows creation of the user, if they do allow modification of the user
 
 setUser() {
     local user password pin
@@ -37,14 +37,16 @@ setUser() {
 	fi
 
 	while true; do
-    #checks if user exits, if they do gives option to modify user(delete, reset password.)
+
+    # checks if user exits, if they do gives option to modify user(delete, reset password.)
     # If user does not exist, asks to create a user and then goes on to create user setting a password and pin
+
     if checkUser "$Uname"; then
         echo "User already exists, would you like to modify? (Y or bye to exit)"
         read choice
         case "$(echo "$choice" | tr '[:upper:]' '[:lower:]')" in   
             y|yes)
-                # Code to modify user
+                # using a case statment to select how to modify a user
                 echo "What would you like to do? Delete the user[D] or reset password[R]"
 		read choice2
 		case "$(echo "$choice2" | tr '[:upper:]' '[:lower:]')" in   
@@ -79,11 +81,13 @@ setUser() {
                 ;;
         esac
     else
+	# if user does not exist gives choice to create user with that name 
+
         echo "User does not exist, would you like to create new user? (Y or any key to exit)"
         read choice
         case "$(echo "$choice" | tr '[:upper:]' '[:lower:]')" in
             y|yes)
-		# Code to create a password, accounts for case insensitivity and checks for a letter. 
+		# Code to create a password, accounts for case insensitivity, checks there is a number and is only 5 characters long 
 	         while true; do
         	            echo "Create Password (password must contain at least one letter & one number, and be 5 five characters in length):"
                 	    read -s password
@@ -92,6 +96,7 @@ setUser() {
                         		echo "Re-enter Password:"
                         		read -s checkPassword
 					checkPasswordLower=$(echo "$checkPassword" | tr '[:upper:]' '[:lower:]')
+						# checks that both entered passwords match 
                         			if [ "$checkPasswordLower" = "$passwordLower" ]; then
                             				echo "Password accepted."
                             			break
@@ -104,7 +109,7 @@ setUser() {
                     		fi
                 	done
 		
-		# code to create a 3 number pin. 
+		# code to create a 3 number pin. Checks the pin is 3 numbers only, 
                 while true; do
                     echo "Create PIN (PIN must be 3 numbers):"
                     read -s pin
@@ -129,12 +134,14 @@ setUser() {
                 ;;
 
 	    bye) 
+		# runs universal exit function 
 		echo Exiting...
 		sh Exit.sh ExitFunc
 		exit
 		;;
 		
             *)
+		# reruns question if invalid option chosen
                 echo "Invalid option" >&2
                 return 1
                 ;;

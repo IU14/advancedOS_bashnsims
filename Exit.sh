@@ -2,11 +2,13 @@
 
 #script to host the universal exit function
 
+# variables 
 Uname="$1"
 loggedInTime="$2"
 
 
-
+# exit function that checks user/admin wants to exit and then exits. 
+# stores the logged off time and the duration of the session to the usage.db file 
 ExitFunc()
 {
 while true; do
@@ -32,7 +34,6 @@ done
 }
 
 #code for the animated exit bar
-
 ExitBar()
 {
 	iterations=20
@@ -49,5 +50,8 @@ ExitBar()
     	echo "] 100%"
 }
 
+#################
+#Running code ###
+#################
 
 ExitFunc

@@ -58,6 +58,8 @@ clearStack()
 #clearing screen
 clear
 
+Uname="$1"
+
 echo "Welcome to the LIFO Simulator"
 
 ProgressBar

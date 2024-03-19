@@ -2,6 +2,7 @@
 
 # Function to show a progress bar
 
+
 ProgressBar()
 {
 	iterations=20
@@ -51,6 +52,8 @@ clearStack()
 
 # Clearing the screen
 clear
+
+Uname="$1"
 
 echo "Welcome to the FIFO Simulator"
 

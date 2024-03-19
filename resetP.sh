@@ -28,9 +28,11 @@ resetPassword()
         		echo "Enter new password (password must contain one letter & at least one number):"
 			read -s newPassword
 			newPasswordLower=$(echo "$newPassword" | tr '[:upper:]' '[:lower:]')
-				if [[ "$newPasswordLower" =~ [a-z] && "$newPasswordLower" =~ [0-9] ]]; then
+				# if the password matches the requirements - updates the password in the database file 
+				if [[ "$newPasswordLower" =~ ^[a-zA-Z0-9]{5}$ ]]; then
 					#updates the password field
 					username=$(echo "$userCheck" | cut -d: -f2)
+					#sets the updated user details
 					updatedUser="$username:$newPassword:$pin"
 					temp=$(mktemp)
                 			grep -v "^$Uname:" UPP.db > "$temp"
@@ -48,5 +50,9 @@ resetPassword()
         echo "Invalid PIN."
     fi
 }
+
+################
+#RUNNING CODE###
+################
 
 resetPassword
