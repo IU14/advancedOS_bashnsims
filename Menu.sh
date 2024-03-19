@@ -97,18 +97,20 @@ case $(echo "$1" | tr '[:upper:]' '[:lower:]') in
 esac
 }
 
+#fucntions that checks the data file 
 CheckDataFile()
 {
 	# code to create simdata_Username.job file exists & to make it 
 	if [ ! -f simdata_$Uname.job ]; then
 		echo "Creating new user data file"
-		touch > simdata_$Uname.job
+		CreateData
+		#touch > simdata_$Uname.job
 	else
 		echo "Would you like to use your previously set Simulation data? Y/N"
 		read choice3
 		case $(echo "$choice3" | tr '[:upper:]' '[:lower:]') in
 			y) echo "Will use previously set data.";;
-			n) echo > simdata_$Uname.job ;;
+			n) CreateData;;
 			*) echo "Invalid choice." >&2; exit 1;;
 		esac
 	fi
@@ -116,7 +118,19 @@ CheckDataFile()
 	Menu
 }
 
-
+#function that creates a random data set and saves to the simdate file 
+CreateData() 
+{
+	echo "Creating new data Set"
+    	simdata=""
+    	for i in $(seq 1 10); do
+             byte=$(( 1 + RANDOM % 99 ))
+		byteData="B$byte\n"
+       		simdata="$simdata$byteData"
+    done
+       
+    echo -e "$simdata" > "simdata_$Uname.job"
+}
 
 #####################
 ### RUNNING CODE ####

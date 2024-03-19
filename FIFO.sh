@@ -50,9 +50,28 @@ clearStack()
 	> stack.txt
 }
 
+# function to take the data from the simdata file and then runs it through the Push Function
+readData()
+{
+    dataFile="simdata_$Uname.job"
+    if [ -f "$dataFile" ]; then
+        echo "Reading Simulation Data from file."
+        while IFS= read -r byte; do
+            Push "$byte"
+        done < "$dataFile"
+    else
+        echo "No sim data"
+    fi
+}
+
+###############
+#Running code #
+###############
+
 # Clearing the screen
 clear
 
+# sets the Username variable 
 Uname="$1"
 
 echo "Welcome to the FIFO Simulator"
@@ -62,10 +81,8 @@ ProgressBar
 # Simulation - pushing & popping elements from the stack
 # Last Pop should print that there is nothing in the stack
 
-Push "First item"
-Push "Second item"
-Push "Third item"
-Push "Final Item"
+readData
+
 
 echo "Popping items from the stack:"
 Pop
@@ -73,6 +90,12 @@ Pop
 Pop
 Pop
 Pop
+Pop
+Pop
+Pop
+Pop
+Pop
+
 
 return 0
 

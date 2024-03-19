@@ -37,6 +37,7 @@ Pop()
 			lastLine=$(tail -n 1 stack.txt)
 			mv tempstack.txt stack.txt
 			echo "Popping $lastLine from the stack."
+			sleep 1
 			
 		else
 			lastLine=$(cat stack.txt)
@@ -55,6 +56,25 @@ clearStack()
 	> stack.txt
 }
 
+# function to take the data from the simdata file and then runs it through the Push Function
+readData()
+{
+    dataFile="simdata_$Uname.job"
+    if [ -f "$dataFile" ]; then
+        echo "Reading Simulation Data from file."
+        while IFS= read -r byte; do
+            Push "$byte"
+        done < "$dataFile"
+    else
+        echo "No sim data"
+    fi
+}
+
+###############
+#Running code #
+###############
+
+
 #clearing screen
 clear
 
@@ -67,12 +87,14 @@ ProgressBar
 #Simulation - pushing & popping elements from the stack
 # Last Pop sould print that the is nothing in the stack
 
-Push "First item"
-Push "Second item"
-Push "Third item"
-Push "Final Item"
+readData
 
 echo "Popping items from the stack:"
+Pop
+Pop
+Pop
+Pop
+Pop
 Pop
 Pop
 Pop
