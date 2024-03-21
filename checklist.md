@@ -29,7 +29,6 @@
 To DO next:
 
 - fix delte func
-- An additional admin script file is also needed such that admin can get useful information on a per user / per sim bases. 
-- They must get details of: total time spent, most poopular sim (per user), most pop sim overall and a ranking list of users who has used the system the most. 
+- working on extracting the time & minutes in order to find total time, have moved to seperate sh script for now as keep getting unsolable syntax error. 
 - complete write up
 - submit 
