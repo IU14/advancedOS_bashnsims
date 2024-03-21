@@ -42,7 +42,7 @@ setUser() {
     # If user does not exist, asks to create a user and then goes on to create user setting a password and pin
 
     if checkUser "$Uname"; then
-        echo "User already exists, would you like to modify? (Y or bye to exit)"
+        echo "User already exists, would you like to modify or check Simulation data for user? (Y/S or bye to exit)"
         read choice
         case "$(echo "$choice" | tr '[:upper:]' '[:lower:]')" in   
             y|yes)
@@ -67,9 +67,13 @@ setUser() {
 				# to implement invalid choice, asking question again
 				echo "invalid choice please select again" >&2
 				;;
-		esac
-			
+		esac	
                 ;;
+	    s)
+		#code to check sim data for the user
+		echo Fetching user simulation statistics .. 
+		fecthSimData
+		;;
 	    bye)
 		echo Exiting...
 		sh Exit.sh ExitFunc
@@ -82,7 +86,6 @@ setUser() {
         esac
     else
 	# if user does not exist gives choice to create user with that name 
-
         echo "User does not exist, would you like to create new user? (Y or any key to exit)"
         read choice
         case "$(echo "$choice" | tr '[:upper:]' '[:lower:]')" in
@@ -136,7 +139,7 @@ setUser() {
 	    bye) 
 		# runs universal exit function 
 		echo Exiting...
-		sh Exit.sh ExitFunc
+		sh Exit.sh "Admin" 
 		exit
 		;;
 		
@@ -179,6 +182,75 @@ deleteUser()
     exit
 }
 
+#Function to get simulation data for the selected User 
+fecthSimData()
+{
+	sleep 1
+
+	#finds how many times they have logged in for
+	countLogIn=$(grep -oh "$Uname logged in" Usage.db | wc -l)
+	echo $Uname has logged in $countLogIn times
+
+	#finds how many times they ran each sim and sets to a variable, then compares. 
+	countFIFO=$(grep -oh "$Uname ran the FIFO" Usage.db | wc -l)
+	countLIFO=$(grep -oh "$Uname ran the LIFO" Usage.db | wc -l)
+	echo "$Uname ran the FIFO sim $countFIFO time(s) and the LIFO sim $countLIFO time(s)"
+	if [ $countFIFO -gt $countLIFO ]; then
+		echo "the FIFO sim is $Uname's favourite";	
+	elif [ 	$countLIFO -gt $countFIFO ]; then
+		echo "the LIFO sim is $Uname's favourite";
+	elif [ $countFIFO -ge 1 ] && [ $countLIFO -ge 1 ] && [ $countFIFO -eq $countLIFO ]; then
+		echo "The simulations are equally favoured by $Uname";
+	else
+		echo "not enough user data";
+	fi
+	 
+	#sh calcTotalSession.sh "$Uname"
+
+
+	#Asks admin they want to now see universal data
+	echo "Would you like to see all user data? Y or bye for exit"
+	read choice
+	case "$(echo "$choice" | tr '[:upper:]' '[:lower:]')" in
+	    y)
+		#code for universal data
+		# finds how many times any sim was run by anyone & compares
+		countAllFIFO=$(grep -oh "ran the FIFO" Usage.db | wc -l)
+		countAllLIFO=$(grep -oh "ran the LIFO" Usage.db | wc -l)
+		if [ $countAllFIFO -gt $countAllLIFO ]; then
+			echo " Users have run the FIFO sim $countAllFIFO time(s) and the LIFO sim $countAllLIFO time(s) making FIFO sim the global favourite"
+
+		else
+			echo " Users have run the FIFO sim $countAllFIFO time(s) and the LIFO sim $countAllLIFO time(s) making LIFO sim the global favourite"
+		fi
+		;;
+
+	    bye)
+		# runs universal exit function 
+		echo Exiting...
+		sh Exit.sh "Admin" 
+		exit
+		;;
+	esac
+
+	#checks if admin would like to check another user or exit.
+	echo "Would you like to like to check another user? Y or bye to exit."
+	read choice2
+	case "$(echo "$choice2" | tr '[:upper:]' '[:lower:]')" in
+	     y) 
+		StartUp
+		;;
+	    bye)
+		# runs universal exit function 
+		echo Exiting...
+		sh Exit.sh "Admin" 
+		exit
+		;;
+	esac
+	    
+	exit
+}
+
 
 # Start up Function
 StartUp()
@@ -202,6 +274,4 @@ StartUp2()
 
 #Calls the start up function on running of script
 StartUp
-
-
 
