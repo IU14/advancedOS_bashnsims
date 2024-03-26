@@ -1,14 +1,14 @@
 #!/bin/sh
 
-#Admin script allows users to be created /  modified and saved to the database (UPP.db) 
+#Admin script allows users to be created /  modified and saved to the database (UPP.db) And shows selected user usage information. 
 
-#Function to check if user alreay exists in the database file
+#Function to check if user already exists in the database file
 checkUser()
 {
 	grep -q "^$1:" UPP.db
 }
 
-#Function to check user length 
+#Function to check username length (has to be 5 characters) 
 userLength()
 {	
 	if [ ${#1} -eq 5 ]; then
@@ -22,6 +22,7 @@ userLength()
 # Takes local variables and checks they exits in the db - if not allows creation of the user, if they do allow modification of the user
 
 setUser() {
+    #VARIABLES	 
     local user password pin
 
     # Creates the User variable from input
@@ -42,10 +43,10 @@ setUser() {
     # If user does not exist, asks to create a user and then goes on to create user setting a password and pin
 
     if checkUser "$Uname"; then
-        echo "User already exists, would you like to modify or check Simulation data for user? (Y/S or bye to exit)"
+        echo "User already exists, would you like to modify[M] or check Simulation[S] data for user? (M/S or bye to exit)"
         read choice
         case "$(echo "$choice" | tr '[:upper:]' '[:lower:]')" in   
-            y|yes)
+            m)
                 # using a case statment to select how to modify a user
                 echo "What would you like to do? Delete the user[D] or reset password[R]"
 		read choice2
@@ -86,7 +87,7 @@ setUser() {
         esac
     else
 	# if user does not exist gives choice to create user with that name 
-        echo "User does not exist, would you like to create new user? (Y or any key to exit)"
+        echo "User does not exist, would you like to create new user? (Y or bye to exit)"
         read choice
         case "$(echo "$choice" | tr '[:upper:]' '[:lower:]')" in
             y|yes)
@@ -130,14 +131,14 @@ setUser() {
                     fi
                 done
                 
-                # Once password & pin are succesfully created, user is to the database upon creation
+                # Once password & pin are succesfully created, user is added to the database upon creation
                 echo "$Uname:$password:$pin" >> UPP.db
                 echo "User Created"
                 exit
                 ;;
 
 	    bye) 
-		# runs universal exit function 
+		# runs universal exit function, sets "admin" as username 
 		echo Exiting...
 		sh Exit.sh "Admin" 
 		exit
@@ -187,7 +188,7 @@ fecthSimData()
 {
 	sleep 1
 
-	#finds how many times they have logged in for
+	#finds how many times they have logged in
 	countLogIn=$(grep -oh "$Uname logged in" Usage.db | wc -l)
 	echo $Uname has logged in $countLogIn times
 
@@ -205,6 +206,9 @@ fecthSimData()
 		echo "not enough user data";
 	fi
 	 
+	# ideally, the program would now calculate the total time the user was in the system but a seemily unfixable syntax error in the function stopped it all running
+	# moved to it's own shellscript so it can be seen for the assignment, but am aware it does not run. 
+	# calcTotalSession
 	#sh calcTotalSession.sh "$Uname"
 
 
@@ -231,6 +235,12 @@ fecthSimData()
 		sh Exit.sh "Admin" 
 		exit
 		;;
+	    *)
+		# reruns question if invalid option chosen
+                echo "Invalid option" >&2
+                return 1
+                ;;
+
 	esac
 
 	#checks if admin would like to check another user or exit.
@@ -246,6 +256,12 @@ fecthSimData()
 		sh Exit.sh "Admin" 
 		exit
 		;;
+	    *)
+		# reruns question if invalid option chosen
+                echo "Invalid option" >&2
+                return 1
+                ;;
+
 	esac
 	    
 	exit

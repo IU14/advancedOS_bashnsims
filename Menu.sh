@@ -1,5 +1,7 @@
 #!/bin/sh
 
+#shell script to run the menu as a user to the system
+
 #function to show loading bar 
 
 LoadingBar()
@@ -37,7 +39,7 @@ printf '\033[8;999;999t'
 #login function
 Login()
 {	
-	#takes input and checks user exists, if so checks password is correct & logs in 
+	#takes input and checks user exists (using grep command), if so checks password is correct & logs in 
 	if grep -q "^$Uname:" UPP.db; then
 		echo "Please enter password."
 		read password

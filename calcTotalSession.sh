@@ -1,5 +1,9 @@
 #!/bin/sh
 
+# this code is meant to be in the admin script, it's meant to calculate the total time a user has been in the system. 
+# however, a syntax error stopped whole admin shellscript from running
+# therefore, moved into it's own shell so the other parts still run even though this does not. 
+
 Uname=$1
 
 #finds how long the user has used the system for
