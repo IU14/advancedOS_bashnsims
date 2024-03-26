@@ -1,6 +1,6 @@
 # Assignment Checklist
 
-- [ ] Display Menu using entire screen
+- [x] Display Menu using entire screen
 - [X] Select correctly & launch on a clean screen
 - [X] Launch separate menu (place holder) files
 - [X] Ability to exit at any prompt via the “Bye” command (case insensitive)
@@ -24,11 +24,6 @@
 - [X] Correct implementation of sim data configuration & usage
 - [X] Correct implementation of LIFO & FIFO scripts
 - [X] Correct and complete implementation (as outlined above)
-- [ ] 800 words write up - currently over word count, need to make more concise and pick what really is the most important key parts to talk about. 
+- [x] 800 words write up - currently over word count, need to make more concise and pick what really is the most important key parts to talk about. 
 
-To DO next:
 
-- fix delte func
-- working on extracting the time & minutes in order to find total time, have moved to seperate sh script for now as keep getting unsolable syntax error. 
-- complete write up
-- submit 
